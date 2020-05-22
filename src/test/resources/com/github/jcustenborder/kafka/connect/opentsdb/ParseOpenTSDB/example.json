@@ -1,0 +1,25 @@
+{
+  "title" : "Example",
+  "input" : {
+    "topic" : "foo",
+    "kafkaPartition" : 1,
+    "keySchema" : {
+      "type" : "STRING",
+      "isOptional" : false
+    },
+    "key" : "foo",
+    "valueSchema" : {
+      "type" : "STRING",
+      "isOptional" : false
+    },
+    "value" : "mysql.bytes_received 1287333217 327810227706 schema=foo host=db1",
+    "timestamp" : 1530286549123,
+    "timestampType" : "CREATE_TIME",
+    "offset" : 91283741,
+    "headers" : [ ]
+  },
+  "description" : "This data takes a string value and parses the data based on the OpenTSDB wire protocol.",
+  "name" : "Example",
+  "config" : {},
+  "childClass" : "Value"
+}
