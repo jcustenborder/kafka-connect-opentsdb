@@ -26,11 +26,11 @@
         <artifactId>kafka-connect-parent</artifactId>
         <version>2.4.0</version>
     </parent>
-    <artifactId>kafka-connect-example</artifactId>
+    <artifactId>kafka-connect-opentsdb</artifactId>
     <version>0.0.2-SNAPSHOT</version>
-    <name>kafka-connect-example</name>
+    <name>kafka-connect-opentsdb</name>
     <description>A Kafka Connect connector receiving data from example.</description>
-    <url>https://github.com/jcustenborder/kafka-connect-example</url>
+    <url>https://github.com/jcustenborder/kafka-connect-opentsdb</url>
     <inceptionYear>2019</inceptionYear>
     <licenses>
         <license>
@@ -50,14 +50,14 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:https://github.com/jcustenborder/kafka-connect-example.git</connection>
-        <developerConnection>scm:git:git@github.com:jcustenborder/kafka-connect-example.git
+        <connection>scm:git:https://github.com/jcustenborder/kafka-connect-opentsdb.git</connection>
+        <developerConnection>scm:git:git@github.com:jcustenborder/kafka-connect-opentsdb.git
         </developerConnection>
-        <url>https://github.com/jcustenborder/kafka-connect-example</url>
+        <url>https://github.com/jcustenborder/kafka-connect-opentsdb</url>
     </scm>
     <issueManagement>
         <system>github</system>
-        <url>https://github.com/jcustenborder/kafka-connect-example/issues</url>
+        <url>https://github.com/jcustenborder/kafka-connect-opentsdb/issues</url>
     </issueManagement>
     <dependencies/>
     <build>

@@ -13,34 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jcustenborder.kafka.connect.example;
+package com.github.jcustenborder.kafka.connect.opentsdb;
 
 import com.github.jcustenborder.kafka.connect.utils.config.Description;
+import com.github.jcustenborder.kafka.connect.utils.config.DocumentationTip;
+import com.github.jcustenborder.kafka.connect.utils.config.Title;
 import com.github.jcustenborder.kafka.connect.utils.transformation.BaseKeyValueTransformation;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.connector.ConnectRecord;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaAndValue;
-import org.apache.kafka.connect.data.Struct;
 
 import java.util.Map;
 
-@Description("This is an example transformation.")
-public abstract class ExampleTransformation<R extends ConnectRecord<R>> extends BaseKeyValueTransformation<R> {
-  protected ExampleTransformation(boolean isKey) {
+
+@Title("Parse OpenTSDB transformation")
+@Description("The ParseOpenTSDB transformation will parse data that is formatted with the OpenTSDB " +
+    "wire protocol.")
+@DocumentationTip("This transformation expects data to be a String. You are " +
+    "most likely going to use the StringConverter.")
+public class ParseOpenTSDB<R extends ConnectRecord<R>> extends BaseKeyValueTransformation<R> {
+  OpenTSDBParser parser = new OpenTSDBParser();
+
+  protected ParseOpenTSDB(boolean isKey) {
     super(isKey);
-  }
-
-  public static class Key<R extends ConnectRecord<R>> extends ExampleTransformation<R> {
-    public Key() {
-      super(true);
-    }
-  }
-
-  public static class Value<R extends ConnectRecord<R>> extends ExampleTransformation<R> {
-    public Value() {
-      super(false);
-    }
   }
 
   @Override
@@ -54,13 +50,24 @@ public abstract class ExampleTransformation<R extends ConnectRecord<R>> extends 
   }
 
   @Override
-  public void configure(Map<String, ?> map) {
+  public void configure(Map<String, ?> configs) {
 
   }
 
   @Override
-  protected SchemaAndValue processStruct(R record, Schema inputSchema, Struct input) {
-    //TODO; Do something
-    return null;
+  protected SchemaAndValue processString(R record, Schema inputSchema, String input) {
+    return parser.parse(input);
+  }
+
+  public static class Key<R extends ConnectRecord<R>> extends ParseOpenTSDB<R> {
+    public Key() {
+      super(true);
+    }
+  }
+
+  public static class Value<R extends ConnectRecord<R>> extends ParseOpenTSDB<R> {
+    public Value() {
+      super(false);
+    }
   }
 }
