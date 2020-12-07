@@ -40,15 +40,37 @@ public class OpenTSDBParser {
       .field("tags", SchemaBuilder.map(Schema.STRING_SCHEMA, Schema.STRING_SCHEMA).doc("").build())
       .build();
 
-  static final Pattern METRIC_PATTERN = Pattern.compile("^(\\S+)\\s+(\\d+)\\s+([0-9.]+)");
+  static final Pattern WIRE_METRIC_PATTERN = Pattern.compile("^(\\S+)\\s+(\\d+)\\s+([0-9.]+)");
+  // Notes on Telnet protocol:
+  // - documentation: http://opentsdb.net/docs/build/html/api_telnet/put.html
+  // - accomodates characters at the beginning of the line that do not match the regex
+  // - does not support scientific notation with exponent
+  static final Pattern TELNET_METRIC_PATTERN = Pattern.compile("put\\s+(\\S+)\\s+(\\d+)\\s+([+-]?[\\d]+[\\.]?[\\d]*)");
   static final Pattern KEY_VALUE_PATTERN = Pattern.compile("\\s*(\\S+)=(\\S+)");
+
+  private Pattern metricPattern;
+
+  protected OpenTSDBParser(ParseOpenTSDBConfig config) {
+    switch (config.protocolType) {
+      case WireProtocol:
+        metricPattern = WIRE_METRIC_PATTERN;
+        break;
+      case TelnetProtocol:
+        metricPattern = TELNET_METRIC_PATTERN;
+        break;
+      default: // should not happen since values of enum are limited
+        log.error("unknown value of ParseOpenTSDBConfig.ProtocolType enum");
+        metricPattern = WIRE_METRIC_PATTERN;
+    }
+  }
 
   public SchemaAndValue parse(String text) {
     log.trace("parse() - text = '{}'", text);
     if (null == text) {
       return null;
     }
-    Matcher matcher = METRIC_PATTERN.matcher(text);
+
+    Matcher matcher = this.metricPattern.matcher(text);
     boolean found = matcher.find();
     if (!found) {
       throw new IllegalStateException("");
