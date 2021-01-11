@@ -70,7 +70,6 @@
                         https://jcustenborder.github.io/kafka-connect-documentation/
                     </documentationUrl>
                     <componentTypes>
-                        <componentType>sink</componentType>
                         <componentType>transform</componentType>
                     </componentTypes>
                     <tags>
