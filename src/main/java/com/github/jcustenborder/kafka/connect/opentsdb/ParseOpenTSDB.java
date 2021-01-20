@@ -33,7 +33,7 @@ import java.util.Map;
 @DocumentationTip("This transformation expects data to be a String. You are " +
     "most likely going to use the StringConverter.")
 public class ParseOpenTSDB<R extends ConnectRecord<R>> extends BaseKeyValueTransformation<R> {
-  OpenTSDBParser parser = new OpenTSDBParser();
+  OpenTSDBParser parser;
 
   protected ParseOpenTSDB(boolean isKey) {
     super(isKey);
@@ -41,7 +41,7 @@ public class ParseOpenTSDB<R extends ConnectRecord<R>> extends BaseKeyValueTrans
 
   @Override
   public ConfigDef config() {
-    return new ConfigDef();
+    return ParseOpenTSDBConfig.config();
   }
 
   @Override
@@ -50,8 +50,8 @@ public class ParseOpenTSDB<R extends ConnectRecord<R>> extends BaseKeyValueTrans
   }
 
   @Override
-  public void configure(Map<String, ?> configs) {
-
+  public void configure(Map<String, ?> settings) {
+    this.parser = new OpenTSDBParser(new ParseOpenTSDBConfig(settings));
   }
 
   @Override

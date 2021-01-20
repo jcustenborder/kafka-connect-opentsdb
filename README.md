@@ -29,7 +29,7 @@ to run the plugin.
 
 
 # Transformations
-## [Parse OpenTSDB transformation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-transform-opentsdb/transformations/ParseOpenTSDB.html)
+## [Parse OpenTSDB transformation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-opentsdb/transformations/ParseOpenTSDB.html)
 
 *Key*
 ```
@@ -40,7 +40,7 @@ com.github.jcustenborder.kafka.connect.opentsdb.ParseOpenTSDB$Key
 com.github.jcustenborder.kafka.connect.opentsdb.ParseOpenTSDB$Value
 ```
 
-The ParseOpenTSDB transformation will parse data that is formatted with the OpenTSDB wire protocol.
+The ParseOpenTSDB transformation will parse data that is formatted with the OpenTSDB wire protocol or the telnet-style API protocol.
 ### Tip
 
 This transformation expects data to be a String. You are most likely going to use the StringConverter.
